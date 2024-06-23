@@ -1,11 +1,13 @@
 package com.raman.routes;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.mavenforge.Http.Route;
 import com.mavenforge.Http.HTTPRequest;
 import com.mavenforge.Http.HTTPResponse;
-import com.mavenforge.Contracts.RoutesContract;
-
 import com.raman.controllers.HomeController;
+import com.mavenforge.Contracts.RoutesContract;
 
 public class Web extends RoutesContract {
     public void init() {
@@ -16,7 +18,12 @@ public class Web extends RoutesContract {
 
         Route.get("/login", this::login);
         Route.get("/register", (request, response) -> {
-            response.status(200).response("Register page Lambda function").send();
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("isAuthenticated", false);
+            data.put("name", "Raman Sharma");
+
+            response.render("index", data);
         });
 
     }
