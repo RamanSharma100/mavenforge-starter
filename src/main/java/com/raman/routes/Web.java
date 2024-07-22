@@ -18,19 +18,15 @@ public class Web extends RoutesContract {
 
         Route.get("/login", this::login);
         Route.get("/register", (request, response) -> {
-
             Map<String, Object> data = new HashMap<>();
             data.put("isAuthenticated", false);
             data.put("name", "Raman Sharma");
 
             response.render("index", data);
         });
-
     }
 
-    private void login(
-            HTTPRequest request,
-            HTTPResponse response) {
+    private void login(HTTPRequest request, HTTPResponse response) {
         response.status(200).response("Login page from Routes directory").send();
     }
 }
