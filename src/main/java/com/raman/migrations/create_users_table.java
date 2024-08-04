@@ -7,6 +7,7 @@ public class create_users_table {
         Schema.create("users", (table) -> {
             table.id().autoIncrement().primary();
             table.string("name").nullable();
+            table.string("password").nullable();
             table.string("email").unique();
             table.integer("age").nullable();
             table.timestamps();
