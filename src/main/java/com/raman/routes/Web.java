@@ -24,9 +24,14 @@ public class Web extends RoutesContract {
 
             response.render("index", data);
         });
+
+        Route.add("/users", "HomeController@users");
+
+        Route.add("/cars", HomeController.class, "cars", new String[] { "GET", "POST" });
     }
 
     private void login(HTTPRequest request, HTTPResponse response) {
         response.status(200).response("Login page from Routes directory").send();
     }
+
 }
