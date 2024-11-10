@@ -17,7 +17,14 @@ public class Web extends RoutesContract {
         Route.get("/dashboard", HomeController.class, "dashboard");
 
         Route.get("/login", this::login);
+        Route.post("/login", "HomeController@login");
+
+        Route.post("/register", "HomeController@storeUser");
         Route.get("/register", (request, response) -> {
+            response.render("register");
+        });
+
+        Route.get("/", (request, response) -> {
             Map<String, Object> data = new HashMap<>();
             data.put("isAuthenticated", false);
             data.put("name", "Raman Sharma");
@@ -31,7 +38,7 @@ public class Web extends RoutesContract {
     }
 
     private void login(HTTPRequest request, HTTPResponse response) {
-        response.status(200).response("Login page from Routes directory").send();
+        response.render("login");
     }
 
 }
