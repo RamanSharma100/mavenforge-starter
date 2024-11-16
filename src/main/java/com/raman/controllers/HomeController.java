@@ -1,7 +1,9 @@
 package com.raman.controllers;
 
+import com.mavenforge.Services.Auth;
 import com.mavenforge.Http.HTTPRequest;
 import com.mavenforge.Http.HTTPResponse;
+
 import com.raman.models.User;
 
 import java.util.Map;
@@ -11,13 +13,18 @@ import com.mavenforge.Controllers.Controller;
 public class HomeController extends Controller {
 
     public void index(HTTPRequest request, HTTPResponse response) {
-        response.status(200).send("Hello World from controller");
+        response.status(200).send("Hello World from contwoman on top of man in busroller");
     }
 
     public void login(HTTPRequest request, HTTPResponse response) {
         Map<String, Object> body = request.getBody();
         for (Map.Entry<String, Object> entry : body.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+        if (Auth.attempt(body.get("username").toString(), body.get("password").toString())) {
+            System.out.println("Login successful");
+        } else {
+            response.redirect("/login");
         }
         // response.status(200).send("Login page from controller");
     }
