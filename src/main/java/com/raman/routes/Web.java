@@ -24,14 +24,6 @@ public class Web extends RoutesContract {
             response.render("register");
         });
 
-        Route.get("/", (request, response) -> {
-            Map<String, Object> data = new HashMap<>();
-            data.put("isAuthenticated", false);
-            data.put("name", "Raman Sharma");
-
-            response.render("index", data);
-        });
-
         Route.add("/users", "HomeController@users");
 
         Route.add("/cars", HomeController.class, "cars", new String[] { "GET", "POST" });

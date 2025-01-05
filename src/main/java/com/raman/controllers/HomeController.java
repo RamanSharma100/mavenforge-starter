@@ -1,19 +1,38 @@
 package com.raman.controllers;
 
 import com.mavenforge.Services.Auth;
+import com.mavenforge.Services.Cookie;
+import com.mavenforge.Services.HttpSession;
 import com.mavenforge.Http.HTTPRequest;
 import com.mavenforge.Http.HTTPResponse;
 
 import com.raman.models.User;
 
 import java.util.Map;
+import java.util.HashMap;
 
 import com.mavenforge.Controllers.Controller;
 
 public class HomeController extends Controller {
 
     public void index(HTTPRequest request, HTTPResponse response) {
-        response.status(200).send("Hello World from contwoman on top of man in busroller");
+        Cookie sessionCookie = request.getCookie("SESSION_ID");
+        Cookie session = HttpSession.get(request);
+        if (sessionCookie != null) {
+            System.out.println("Session ID: " + sessionCookie.getValue());
+        } else {
+            System.out.println("Session ID not found");
+        }
+        // response.status(200).send("Hello World from controller; Session Id: " +
+        // sessionCookie.getValue());
+        Map<String, Object> data = new HashMap<>();
+        data.put("sessionId", sessionCookie != null ? sessionCookie.getValue() : null);
+        if (session != null) {
+            data.put("isAuthenticated", true);
+            data.put("name", "Raman Sharma");
+        }
+
+        response.render("index", data);
     }
 
     public void login(HTTPRequest request, HTTPResponse response) {
